@@ -1,1 +1,1 @@
-Stroną główną tworzonej strony jest plik strona.html
+Stroną główną tworzonej strony jest plik index.html
