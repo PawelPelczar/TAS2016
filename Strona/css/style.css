@@ -29,7 +29,7 @@ footer {
 
 header {margin:25px 0;}
 
-header img {width:100%; margin:center}
+header img {heigh:screenHeight; display:block; margin:auto;}
 
 #login {text-align:right;}
 
