@@ -1,3 +1,6 @@
+#UWAGA!
+Poniższe założenia ulegną niedługo zmianie! (np. ankieta będzie reprezentowana przez zestaw rekordów w jednej tabeli)
+
 #Jak uruchomić bazę danych w programie Microsoft SQL Server Management Studio?
 
 Należy kolejno wykonać:
