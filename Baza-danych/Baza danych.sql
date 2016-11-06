@@ -66,3 +66,44 @@ id_pytania INT REFERENCES Pytania(id_pytania) NOT NULL,
 id_odp INT REFERENCES Odpowiedzi(id_odp) NOT NULL,
 id_user INT REFERENCES Users(id_user) NOT NULL,
 )
+
+INSERT INTO Users VALUES
+	('darooo', '938271dk', 'Dariusz', 'Kowalewski', 'darek@gmail.com', '654123987', '2016-03-15'),
+	('marix', '718293mb', 'Marek', 'Bratkowski', 'marek@gmail.com', '951852753', '2016-02-20'),
+	('lindex', '000000lm', 'Linda', 'Maciaszek', 'linda@gmail.com', '123456789', '2016-01-01'),
+	('nati', '111111nm', 'Natalia', 'Misiaszek', 'natalia@gmail.com', '321654987', '2015-12-09'),
+	('igucha', '222222ik', 'Iga', 'Kobelak', 'iga@gmail.com', '741852963', '2015-12-24'),
+	('tomcio', '333333tm', 'Tomasz', 'Mróz', 'tomek@gmail.com', '852963741', '2015-11-03'),
+	('marixon', '444444ok', 'Marek', 'Karwecki', 'maro@gmail.com', '874569123', '2015-10-29');
+
+INSERT INTO Sondy VALUES
+	(1, 'Ankieta nr 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2016-03-16', '2016-03-18', 4),
+	(3, 'Ankieta nr 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2016-02-21', '2016-03-01', 2),
+	(6, 'Ankieta nr 3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2015-11-20', '2015-12-24', 3);
+
+INSERT INTO Pytania VALUES
+	(1, 'Jaki jest wynik operacji 2+2?'),
+	(1, 'Jaki jest wynik operacji 2*2?'),
+	(1, 'Jaki jest wynik operacji 3+3-3?'),
+	(1, 'Jaki jest wynik operacji 2*2*2?'),
+	(2, 'Jak nazywa się najnowszy album Madonny?'),
+	(2, 'Jak nazywa się najlepszy album Madonny?'),
+	(3, 'Co chcesz zjeść na śniadanie?'),
+	(3, 'Co chcesz zjeść na obiad?'),
+	(3, 'Co chcesz zjeść na kolację?');
+
+INSERT INTO Odpowiedzi VALUES
+	(1, '3'),(1, '4'),(1, '5'),(1, '6'),
+	(2, '4'),(2, '5'),(2, '6'),(2, '7'),
+	(3, '1'),(3, '2'),(3, '3'),(3, '4'),
+	(4, '8'),(4, '16'),(4, '32'),(4, '64'),
+	(5, 'Rebel Heart'),(5, 'MDNA'),(5, 'Hard Candy'),(5,'Erotica'),(5, 'American Life'),(5, 'Ray of Light'),(5, 'True Blue'),
+	(6, 'Rebel Heart'),(6, 'MDNA'),(6, 'Hard Candy'),(6,'Erotica'),(6, 'American Life'),
+	(7, 'Frytki'), (7, 'Jajecznicę'), (7, 'Nie chcę jeść śniadania'),
+	(8, 'Frytki'), (8, 'Schabowego z ziemniakami i kapustą kiszoną'), (8, 'Śledzie z wódką'), (8, 'Inna odpowiedź'),
+	(9, 'Frytki'), (9, 'Banana'), (9, 'Nie jadam kolacji');
+
+INSERT INTO Wyniki VALUES
+	(1,1,2,3),(1,2,5,3),(1,3,11,3),(1,4,13,3),
+	(2,5,17,2),(2,6,27,2),
+	(2,5,17,4),(2,6,26,4);
