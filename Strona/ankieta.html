@@ -17,13 +17,14 @@
 
 </header>
  
-<!-- sidebar -->
- <p align="right"><strong>login:</strong> 
+ <
+<p align="right"><strong>login:</strong> 
     <input maxlength="25" size="30" name="login" placeholder="Login"></p>
-   <p align="right"><strong>password:</strong> 
+<p align="right"><strong>password:</strong> 
     <input type="password" maxlength="25" size="30" name="password" placeholder="Password"></p>
-	<p align="right"><input type="submit" value="Login!"></p>
+<p align="right"><input type="submit" value="Login!"></p>
 	
+<!-- sidebar -->	
 <aside>
   <nav>
     <ul>
@@ -39,8 +40,26 @@
  
 <!-- main -->
 <section id="main">
-<h1>Zalogowano pomyślnie</h1>
-<p><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum tempus mi, maximus volutpat urna sollicitudin vitae. Vivamus rutrum mi sit amet commodo rutrum. Suspendisse potenti. Sed a ullamcorper eros. Maecenas dapibus erat mi, a egestas ipsum cursus volutpat. Aliquam posuere mi at consectetur convallis. Cras vitae ligula eget leo ultrices hendrerit nec sed ex. Morbi at ipsum rhoncus, dictum elit in, consectetur lorem. Aliquam suscipit diam sit amet mauris luctus, a egestas magna pharetra. Donec laoreet viverra risus nec fermentum. Maecenas gravida lectus vel ante commodo bibendum. Donec ac pellentesque mi.</i></p>
+  <h1>Proszę wypełnić poniższą ankietę</h1>
+  <p>Ankietę należy wypełniać klikając i naciskając "wyślij"</p>
+
+  <div id="ankieta_container">
+	<form action="demo_form.asp" method="get" enctype="application/json">
+	<input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
+	<input type="radio" name="vehicle" value="Car" checked> I have a car<br>
+	<input type="radio" name="vehicle" value="Plane"> I have an airplane<br>
+	<input type="submit" value="Submit">
+	</form>
+	<form enctype='application/json'>
+	  <input name='name' value='Bender'>
+	  <select name='hind'>
+		<option selected>Bitable</option>
+		<option>Kickable</option>
+	  </select>
+	  <input type='checkbox' name='shiny' checked>
+	</form>
+  </div>
+
 </section>
  
 <!-- footer -->
@@ -49,6 +68,7 @@
 </footer>
  
 </div>
+
  
 </body>
 </html>
