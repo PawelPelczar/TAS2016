@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Strona RWD</title>
 <link rel="stylesheet" href="css/style.css">
+	
+<script type="text/javascript">
+function ISchecked(name)
+{
+  var elements = document.getElementsByName(name);
+  for (var i=0; i<elements.length; i++)  {
+  if  (elements[i].checked) return true
+  }
+  return false
+}
+</script>
 </head>
 <body onload="getScreenProperties()" onresize="getScreenProperties()">
  
@@ -48,7 +59,7 @@
 	<input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
 	<input type="radio" name="vehicle" value="Car" checked> I have a car<br>
 	<input type="radio" name="vehicle" value="Plane"> I have an airplane<br>
-	<input type="submit" value="Submit">
+	<input type="submit" value="Submit" onclick="alert(ISchecked('vehicle'));">
 	</form>
 	<form enctype='application/json'>
 	  <input name='name' value='Bender'>
