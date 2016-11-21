@@ -49,6 +49,7 @@ CREATE TABLE Pytania(
 id_pytania INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 id_sondy INT REFERENCES Sondy(id_sondy) NOT NULL,
 content TEXT NOT NULL,
+type VARCHAR(1) NOT NULL,
 )
  
 IF OBJECT_ID('Odpowiedzi','U') IS NULL
@@ -82,15 +83,15 @@ INSERT INTO Sondy VALUES
 	(6, 'Ankieta nr 3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2015-11-20', '2015-12-24', 3);
 
 INSERT INTO Pytania VALUES
-	(1, 'Jaki jest wynik operacji 2+2?'),
-	(1, 'Jaki jest wynik operacji 2*2?'),
-	(1, 'Jaki jest wynik operacji 3+3-3?'),
-	(1, 'Jaki jest wynik operacji 2*2*2?'),
-	(2, 'Jak nazywa się najnowszy album Madonny?'),
-	(2, 'Jak nazywa się najlepszy album Madonny?'),
-	(3, 'Co chcesz zjeść na śniadanie?'),
-	(3, 'Co chcesz zjeść na obiad?'),
-	(3, 'Co chcesz zjeść na kolację?');
+	(1, 'Jaki jest wynik operacji 2+2?', 's'),
+	(1, 'Jaki jest wynik operacji 2*2?', 's'),
+	(1, 'Jaki jest wynik operacji 3+3-3?', 's'),
+	(1, 'Jaki jest wynik operacji 2*2*2?', 's'),
+	(2, 'Jak nazywa się najnowszy album Madonny?', 's'),
+	(2, 'Jak nazywa się najlepszy album Madonny?', 's'),
+	(3, 'Co chcesz zjeść na śniadanie?', 'm'),
+	(3, 'Co chcesz zjeść na obiad?', 'm'),
+	(3, 'Co chcesz zjeść na kolację?', 'm');
 
 INSERT INTO Odpowiedzi VALUES
 	(1, '3'),(1, '4'),(1, '5'),(1, '6'),
