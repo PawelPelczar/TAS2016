@@ -21,7 +21,7 @@ body {
 
 .container {width:1050px;margin:0 auto;}
 
- 
+#container {padding-bottom:5%;}
 
 header {margin:25px 0;}
 
@@ -73,6 +73,7 @@ aside {width:20%;}
 #login {width:30%; right:5%; margin-right:5%; margin-left:60%; color:#D9CBA5; float:right;}
 #login.login-button {position:relative;}
 
+.custom_error_message {background:black; color:red; size:22px;}
 }
 
 @media (max-width: 1100px) and (min-width: 1000px) {
