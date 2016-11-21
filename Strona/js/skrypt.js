@@ -18,7 +18,7 @@ function handleUpdate(val) {
 }
 
 
-var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"single","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"multiple","odpowiedzi":["a","b","c","d"]},{"idPyt":3,"pytanie":"pytanie 3","rodzaj":"multiple","odpowiedzi":["one","two","three"]},{"idPyt":4,"pytanie":"pytanie 4","rodzaj":"single","odpowiedzi":["111","123","139"]},{"idPyt":5,"pytanie":"Are you a boy or a girl?","rodzaj":"radio","odpowiedzi":["Y","N"]}]}';
+var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"single","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"multiple","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"multiple","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"single","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"radio","odpowiedzi":["Y","N"]}]}';
 var ankieta = JSON.parse(ankietaString);
 
 
@@ -34,12 +34,12 @@ function uncheckAllCheckboxes(){
 
 function iterateJSON(){
   $("#ankieta_container").html("");
-  var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"single","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"multiple","odpowiedzi":["a","b","c","d"]},{"idPyt":3,"pytanie":"pytanie 3","rodzaj":"multiple","odpowiedzi":["one","two","three"]},{"idPyt":4,"pytanie":"pytanie 4","rodzaj":"single","odpowiedzi":["111","123","139"]},{"idPyt":5,"pytanie":"Are you a boy or a girl?","rodzaj":"radio","odpowiedzi":["Y","N"]}]}';
+  var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
   var ankieta = JSON.parse(ankietaString);
   
   for(var i=0; i<ankieta.pytania.length; i++){
     var checkboxType;
-	if (ankieta.pytania[i].rodzaj=="single") {
+	if (ankieta.pytania[i].rodzaj=="multiple") {
 	  checkboxType = "checkbox";
 	} else {
 	  checkboxType = "radio";
