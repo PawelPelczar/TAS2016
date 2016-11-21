@@ -4,7 +4,6 @@ var screenWidth;
 function getScreenProperties(){
 	screenHeight=screen.height;
 	screenWidth=screen.width;
-	document.getElementById("ankieta_container").innerHTML = screen.width;
 	handleUpdate();
 }
 
@@ -16,4 +15,77 @@ function getScreenProperties(){
 
 function handleUpdate(val) {
     document.documentElement.style.setProperty('screenHeight', val);
+}
+
+
+var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"single","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"multiple","odpowiedzi":["a","b","c","d"]},{"idPyt":3,"pytanie":"pytanie 3","rodzaj":"multiple","odpowiedzi":["one","two","three"]},{"idPyt":4,"pytanie":"pytanie 4","rodzaj":"single","odpowiedzi":["111","123","139"]},{"idPyt":5,"pytanie":"Are you a boy or a girl?","rodzaj":"radio","odpowiedzi":["Y","N"]}]}';
+var ankieta = JSON.parse(ankietaString);
+
+
+
+function uncheckAllCheckboxes(){
+  var confirmUncheck = confirm("Na pewno chcesz usunąć zapisane odpowiedzi?");
+  if (confirmUncheck==true) {
+    $("input[type='checkbox']").prop("checked", false);
+    $("input[type='radio']").prop("checked", false);
+  }  
+  console.log("Pressed Reset button");
+}
+
+function iterateJSON(){
+  $("#ankieta_container").html("");
+  var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"single","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"multiple","odpowiedzi":["a","b","c","d"]},{"idPyt":3,"pytanie":"pytanie 3","rodzaj":"multiple","odpowiedzi":["one","two","three"]},{"idPyt":4,"pytanie":"pytanie 4","rodzaj":"single","odpowiedzi":["111","123","139"]},{"idPyt":5,"pytanie":"Are you a boy or a girl?","rodzaj":"radio","odpowiedzi":["Y","N"]}]}';
+  var ankieta = JSON.parse(ankietaString);
+  
+  for(var i=0; i<ankieta.pytania.length; i++){
+    var checkboxType;
+	if (ankieta.pytania[i].rodzaj=="single") {
+	  checkboxType = "checkbox";
+	} else {
+	  checkboxType = "radio";
+	}
+	
+	$("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + ":</b></div>");
+	for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
+	  var checkbox = document.createElement("input");
+	  var label = document.createElement("label");
+	  checkbox.id = "an"+i+"_"+j;
+	  checkbox.name = ankieta.pytania[i].pytanie;
+	  checkbox.value = ankieta.pytania[i].odpowiedzi[j];
+	  checkbox.type = checkboxType;
+	  label.htmlFor = checkbox.id;
+	  label.appendChild(document.createTextNode(ankieta.pytania[i].odpowiedzi[j]));
+	  document.getElementById("ankieta_container").appendChild(checkbox);
+	  document.getElementById("ankieta_container").appendChild(label);
+	  $("#ankieta_container").append("<br>");
+	}
+    $("#ankieta_container").append("<br>");
+  }
+  $("#ankieta_container").append("<button onclick='getAnkietaData()'>Zatwierdź</button>");
+  $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
+}
+
+function getAnkietaData(){
+  console.log("Data for: " + Date());
+  var reJSON = '{"id":'+ankieta.id+',"pytania":[';
+  for(var i=0; i<ankieta.pytania.length; i++) {
+    reJSON += '{"idPyt":' + ankieta.pytania[i].idPyt +',"odpowiedzi":[';
+    for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
+      if (document.getElementById("an"+i+"_"+j).checked){
+        reJSON += 'true';
+	    //console.log(document.getElementById("an"+i+"_"+j));
+      }
+      else {
+        reJSON += 'false';
+      }
+      if (j<ankieta.pytania[i].odpowiedzi.length-1) { reJSON += ',' }
+	}
+    reJSON = reJSON + ']}';
+    if (i<ankieta.pytania.length-1) { reJSON += ',' }
+  }
+  reJSON += ']}'
+  console.log(reJSON);
+  var reString = JSON.stringify(reJSON);
+  //var reString = "'" + reJson "'";
+  console.log(reString);
 }
