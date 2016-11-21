@@ -88,10 +88,20 @@ function getAnkietaData(){
   //var reString = JSON.stringify(reJSON);
   //var reString = "'" + reJson "'";
   //console.log(reString);
-  //$ajax({
-  //  type: "PUT",
-  //  url: ////////////
-  //  contentType: "application/json",
-  //  data: reJSON
-  //});
+  $.post/*ajax*/({
+    type: "POST",
+    url:"/ankieta.html",
+    contentType: "application/json",
+    data: reJSON,
+  })
+  .done(function() {
+    console.log( "done" )
+  })
+  .fail(function() {
+    console.log( "fail" );
+  })
+  .always(function() {
+    console.log( "finished" );
+  });
+  //document.getElementById("main").innerHTML=("Dziękujemy za wypełnienie ankiety!");
 }
