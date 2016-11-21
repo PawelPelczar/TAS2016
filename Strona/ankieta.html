@@ -5,49 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Strona RWD</title>
 <link rel="stylesheet" href="css/style.css">
-	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-function ISchecked(name)
-{
-  var elements = document.getElementsByName(name);
-  for (var i=0; i<elements.length; i++)  {
-  if  (elements[i].checked) return true
-  }
-  return false
-}
-</script>
-<script>
-function iterateJSON(){
-  $("#ankieta_container").html("");
-  var ankietaString = '{"id":"123","title":"Test JSON- ankieta","pytania":[{"pytanie":"pytanie 1","rodzaj":"single","odpowiedzi":["1","2","3"]},{"pytanie":"pytanie 2","rodzaj":"multiple","odpowiedzi":["a","b","c"]},{"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["111","123","139"]}]}';
-  var ankieta = JSON.parse(ankietaString);
-  
-  for(var i=0; i<ankieta.pytania.length; i++){
-    var checkboxType;
-	if (ankieta.pytania[i].rodzaj=="single") {
-	  checkboxType = "checkbox";
-	} else {
-	  checkboxType = "radio";
-	}
-	
-	$("#ankieta_container").append(ankieta.pytania[i].pytanie + ":<br>");
-	for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
-	  var checkbox = document.createElement("input");
-	  var label = document.createElement("label");
-	  checkbox.id = ""+j;
-	  checkbox.type = checkboxType;
-	  label.htmlFor = checkbox.id;
-	  label.appendChild(document.createTextNode(ankieta.pytania[i].odpowiedzi[j]));
-	  document.getElementById("ankieta_container").appendChild(checkbox);
-	  document.getElementById("ankieta_container").appendChild(label);
-	  $("#ankieta_container").append("<br>");
-	}
-	$("#ankieta_container").append("<br>");
-  }
-  //$("#ankieta_container").append("<br><button onclick='alert("This should submit")'></button>")
-}
-</script>
 </head>
 <body onload="iterateJSON()" onresize="getScreenProperties()">
  
@@ -60,12 +17,16 @@ function iterateJSON(){
 
 </header>
  
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/skrypt.js"></script>
+ 
+<section id="login">
 <p align="right"><strong>login:</strong> 
     <input maxlength="25" size="30" name="login" placeholder="Login"></p>
 <p align="right"><strong>password:</strong> 
     <input type="password" maxlength="25" size="30" name="password" placeholder="Password"></p>
 <p align="right"><input type="submit" value="Login!"></p>
+</section>
 	
 <!-- sidebar -->	
 <aside>
@@ -84,14 +45,17 @@ function iterateJSON(){
 <!-- main -->
 <section id="main">
   <h1>Proszę wypełnić poniższą ankietę</h1>
-  <p>Ankietę należy wypełniać klikając i naciskając "wyślij"</p>
+  <p>Ankietę należy wypełniać klikając i naciskając "Zatwierdź"</p><br>
 
-  <div id="example_ankieta_container">
+  <div id="ankieta_container">
 	<form action="demo_form.asp" method="get" enctype="application/json">
-	<input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
-	<input type="radio" name="vehicle" value="Car" checked> I have a car<br>
-	<input type="radio" name="vehicle" value="Plane"> I have an airplane<br>
-	<input type="submit" value="Submit" onclick="alert(ISchecked('vehicle'));">
+	  <input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
+	  <input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
+	  <input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
+	  <input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
+	  <input type="radio" name="vehicle" value="Car"> I have a car<br>
+	  <input type="radio" name="vehicle" value="Plane"> I have an airplane<br>
+	  <input type="submit" value="Submit">
 	</form>
 	<form enctype='application/json'>
 	  <input name='name' value='Bender'>
@@ -101,15 +65,16 @@ function iterateJSON(){
 	  </select>
 	  <input type='checkbox' name='shiny' checked>
 	</form>
-  </div>
-  <div id="ankieta_container">Tu powinna być ankieta 
-    <button onclick="iterateJSON()">Do it!</button>
+	<div id="ankieta_container"></div>
   </div>
 
 </section>
  
 </div>
 
+ 
+</body>
+</html>
  
 </body>
 </html>
