@@ -85,7 +85,13 @@ function getAnkietaData(){
   }
   reJSON += ']}'
   console.log(reJSON);
-  var reString = JSON.stringify(reJSON);
+  //var reString = JSON.stringify(reJSON);
   //var reString = "'" + reJson "'";
-  console.log(reString);
+  //console.log(reString);
+  //$ajax({
+  //  type: "PUT",
+  //  url: ////////////
+  //  contentType: "application/json",
+  //  data: reJSON
+  //});
 }
