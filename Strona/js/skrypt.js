@@ -63,9 +63,9 @@ function iterateJSON(){
     }
     
     if (checkboxType=="checkbox") {
-      $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + "</b> (proszę wybrać co najmniej 1 odpowiedź):</div>");
+      $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + "</b> (proszę wybrać jedną lub więcej odpowiedzi):</div>");
     } else {
-      $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + "</b> (proszę wybrać kilka odpowiedzi):</div>");
+      $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + "</b> (proszę wybrać jedną odpowiedź):</div>");
     }
     for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
       var checkbox = document.createElement("input");
