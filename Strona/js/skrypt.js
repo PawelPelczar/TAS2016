@@ -1,7 +1,7 @@
 
 var screenHeight;
 var screenWidth;
-function getScreenProperties(){
+function getScreenProperties() {
 	screenHeight=screen.height;
 	screenWidth=screen.width;
 	handleUpdate();
@@ -18,7 +18,8 @@ function handleUpdate(val) {
 }
 
 
-var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"single","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"multiple","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"multiple","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"single","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"radio","odpowiedzi":["Y","N"]}]}';
+var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
+//var ankietaString = "";
 var ankieta = JSON.parse(ankietaString);
 
 
@@ -32,40 +33,56 @@ function uncheckAllCheckboxes(){
   console.log("Pressed Reset button");
 }
 
+function receiveAnkietaData(){
+  //$(document).ready(function() {
+    $.ajax({
+      crossDomain: true,
+      contentType: "application/json",
+      type: "GET",
+      url: "https://s410380.students.wmi.amu.edu.pl/ankieta.html",
+      data: { get_data: ankieta, id: 123},
+      success: function(data){
+        ankietaString = data;
+        iterateJSON();
+      }
+    });
+  //});
+}
+
 function iterateJSON(){
   $("#ankieta_container").html("");
-  var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
+  //var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
   var ankieta = JSON.parse(ankietaString);
   
   for(var i=0; i<ankieta.pytania.length; i++){
     var checkboxType;
-	if (ankieta.pytania[i].rodzaj=="multiple") {
-	  checkboxType = "checkbox";
-	} else {
-	  checkboxType = "radio";
-	}
-	
-	$("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + ":</b></div>");
-	for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
-	  var checkbox = document.createElement("input");
-	  var label = document.createElement("label");
-	  checkbox.id = "an"+i+"_"+j;
-	  checkbox.name = ankieta.pytania[i].pytanie;
-	  checkbox.value = ankieta.pytania[i].odpowiedzi[j];
-	  checkbox.type = checkboxType;
-	  label.htmlFor = checkbox.id;
-	  label.appendChild(document.createTextNode(ankieta.pytania[i].odpowiedzi[j]));
-	  document.getElementById("ankieta_container").appendChild(checkbox);
-	  document.getElementById("ankieta_container").appendChild(label);
-	  $("#ankieta_container").append("<br>");
-	}
+    if (ankieta.pytania[i].rodzaj=="multiple") {
+      checkboxType = "checkbox";
+    } else {
+      checkboxType = "radio";
+    }
+    
+    $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + ":</b></div>");
+    for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
+      var checkbox = document.createElement("input");
+      var label = document.createElement("label");
+      checkbox.id = "an"+i+"_"+j;
+      checkbox.name = ankieta.pytania[i].pytanie;
+      checkbox.value = ankieta.pytania[i].odpowiedzi[j];
+      checkbox.type = checkboxType;
+      label.htmlFor = checkbox.id;
+      label.appendChild(document.createTextNode(ankieta.pytania[i].odpowiedzi[j]));
+      document.getElementById("ankieta_container").appendChild(checkbox);
+      document.getElementById("ankieta_container").appendChild(label);
+      $("#ankieta_container").append("<br>");
+    }
     $("#ankieta_container").append("<br>");
   }
-  $("#ankieta_container").append("<button onclick='getAnkietaData()'>Zatwierdź</button>");
+  $("#ankieta_container").append("<button onclick='getFilledAnkieta()'>Zatwierdź</button>");
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
 }
-
-function getAnkietaData(){
+ 
+function getFilledAnkieta(){
   console.log("Data for: " + Date());
   var reJSON = '{"id":'+ankieta.id+',"pytania":[';
   for(var i=0; i<ankieta.pytania.length; i++) {
@@ -90,7 +107,8 @@ function getAnkietaData(){
   //console.log(reString);
   $.post/*ajax*/({
     type: "POST",
-    url:"/ankieta.html",
+    crossDomain: true,
+    url:"https://s410380.students.wmi.amu.edu.pl/ankieta.html", //można usunąć "http:"/"https:" dla spójności z domenami obsługującymi inny protokół
     contentType: "application/json",
     data: reJSON,
   })
