@@ -62,7 +62,11 @@ function iterateJSON(){
       checkboxType = "radio";
     }
     
-    $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + ":</b></div>");
+    if (checkboxType=="checkbox") {
+      $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + "</b> (proszę wybrać co najmniej 1 odpowiedź):</div>");
+    } else {
+      $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + "</b> (proszę wybrać kilka odpowiedzi):</div>");
+    }
     for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
       var checkbox = document.createElement("input");
       var label = document.createElement("label");
