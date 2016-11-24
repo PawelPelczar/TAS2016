@@ -48,6 +48,10 @@ aside nav ul li a:hover{background:#8888CF;color:#FFF;}
 	float:right; width:65%; padding-top:10px; padding-bottom:10px;
 }
 
+#undermain {
+	float:right; width:65%; padding-top:10px; padding-bottom:10px;
+}
+
 #filler {
 	overflow:hidden;
 }
@@ -59,7 +63,8 @@ button.reset_button {background-color:#DD8888;}
 
  
 
-footer {clear:both; color:#FFF; background:#121212; padding:15px 0 15px 30px; bottom:0; width:100%; position:fixed;}
+/*footer {clear:both; color:#FFF; background:#121212; padding:15px 0 15px 30px; bottom:0; width:100%; position:fixed;}*/
+footer {clear:both; color:#FFF; padding:15px 0px 15px 0px; bottom:0; width:100%; position:static;}
 
 /*test responsywności*/
 @media (min-width: 1100px) {
@@ -110,7 +115,7 @@ aside,
 
 #main {width:100%;}
 
-footer{padding:5px 0px 5px 10px;}
+footer{padding:5px 0px 5px 0px;}
 
 }
 
@@ -122,6 +127,6 @@ aside,
 
 #main {width:100%;}
 
-footer{padding:5px 0px 5px 10px;}
+footer{padding:5px 0px 5px 0px;}
 
 }
