@@ -17,7 +17,7 @@ function handleUpdate(val) {
     document.documentElement.style.setProperty('screenHeight', val);
 }
 
-function parseURLParams() {
+function parseURLParams() { // funkcja odpowiedzialna za pobieranie danych query zapisanego w URL-u (zwraca obiekt zbudowany na parametrach i zapisuje go w konsoli)
     var url = document.URL,
         queryStart = url.indexOf("?") + 1,
         queryEnd   = url.indexOf("#") + 1 || url.length + 1,
@@ -53,7 +53,7 @@ var ankieta = JSON.parse(ankietaString);
 
 
 
-function uncheckAllCheckboxes(){;
+function uncheckAllCheckboxes(){; //Funkcjonalność przycisku "Reset" na ekranie wypełniania ankiety
   if (confirm("Na pewno chcesz usunąć zapisane odpowiedzi?")==true) {
     $("input[type='checkbox']").prop("checked", false);
     $("input[type='radio']").prop("checked", false);
@@ -77,7 +77,7 @@ function receiveAnkietaData(){
   //});
 }
 
-function iterateJSON(){
+function iterateJSON(){ // tworzy ankietę na podstawie JSON-a (który powinien byc otrzymywany z serwera)
   $("#ankieta_container").html("");
   //var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
   var ankieta = JSON.parse(ankietaString);
@@ -110,11 +110,11 @@ function iterateJSON(){
     }
     $("#ankieta_container").append("<br>");
   }
-  $("#ankieta_container").append("<button onmousedown='getFilledAnkieta(); document.getElementById(\"main\").innerHTML=\"Dziękujemy!\"'>Zatwierdź</button>");
+  $("#ankieta_container").append("<button onmousedown='getFilledAnkieta(); document.getElementById(\"main\").innerHTML=\"Ankieta została wysłana.\nDziękujemy!\"'>Zatwierdź</button>");
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
 }
  
-function getFilledAnkieta(){
+function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu wypełniania ankiety- zbiera dane z zaznaczonych pól, buduje obiekt JSON i wysyła do serwera
   console.log("Data for: " + Date());
   var reJSONString = '{"id":'+ankieta.id+',"pytania":[';
   for(var i=0; i<ankieta.pytania.length; i++) {
