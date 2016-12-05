@@ -17,6 +17,35 @@ function handleUpdate(val) {
     document.documentElement.style.setProperty('screenHeight', val);
 }
 
+function parseURLParams() {
+    var url = document.URL,
+        queryStart = url.indexOf("?") + 1,
+        queryEnd   = url.indexOf("#") + 1 || url.length + 1,
+        query = url.slice(queryStart, queryEnd - 1),
+        pairs = query.replace(/\+/g, " ").split("&"),
+        parms = {}, name, value, namevalue;
+
+    if (query === url || query === "") {
+        return;
+    }
+
+    for (var i = 0; i < pairs.length; i++) {
+        namevalue = pairs[i].split("=");
+        name = decodeURIComponent(namevalue[0]);
+        value = decodeURIComponent(namevalue[1]);
+
+        if (!parms.hasOwnProperty(name)) {
+            parms[name] = [];
+        }
+
+        parms[name].push(namevalue.length === 2 ? value : null);
+    }
+    //document.getElementById("querytestdiv") = parms;
+    console.log(parms);
+    //console.log(JSON.stringify(parms));
+    return parms;
+}
+
 
 var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
 //var ankietaString = "";
@@ -24,9 +53,8 @@ var ankieta = JSON.parse(ankietaString);
 
 
 
-function uncheckAllCheckboxes(){
-  var confirmUncheck = confirm("Na pewno chcesz usunąć zapisane odpowiedzi?");
-  if (confirmUncheck==true) {
+function uncheckAllCheckboxes(){;
+  if (confirm("Na pewno chcesz usunąć zapisane odpowiedzi?")==true) {
     $("input[type='checkbox']").prop("checked", false);
     $("input[type='radio']").prop("checked", false);
   }  
@@ -75,46 +103,46 @@ function iterateJSON(){
       checkbox.value = ankieta.pytania[i].odpowiedzi[j];
       checkbox.type = checkboxType;
       label.htmlFor = checkbox.id;
-      label.appendChild(document.createTextNode(ankieta.pytania[i].odpowiedzi[j]));
+      label.appendChild(document.createTextNode(" " + ankieta.pytania[i].odpowiedzi[j]));
       document.getElementById("ankieta_container").appendChild(checkbox);
       document.getElementById("ankieta_container").appendChild(label);
       $("#ankieta_container").append("<br>");
     }
     $("#ankieta_container").append("<br>");
   }
-  $("#ankieta_container").append("<button onclick='getFilledAnkieta()'>Zatwierdź</button>");
+  $("#ankieta_container").append("<button onmousedown='getFilledAnkieta(); document.getElementById(\"main\").innerHTML=\"Dziękujemy!\"'>Zatwierdź</button>");
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
 }
  
 function getFilledAnkieta(){
   console.log("Data for: " + Date());
-  var reJSON = '{"id":'+ankieta.id+',"pytania":[';
+  var reJSONString = '{"id":'+ankieta.id+',"pytania":[';
   for(var i=0; i<ankieta.pytania.length; i++) {
-    reJSON += '{"idPyt":' + ankieta.pytania[i].idPyt +',"odpowiedzi":[';
+    reJSONString += '{"idPyt":' + ankieta.pytania[i].idPyt +',"odpowiedzi":[';
     for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
       if (document.getElementById("an"+i+"_"+j).checked){
-        reJSON += 'true';
+        reJSONString += 'true';
 	    //console.log(document.getElementById("an"+i+"_"+j));
       }
       else {
-        reJSON += 'false';
+        reJSONString += 'false';
       }
-      if (j<ankieta.pytania[i].odpowiedzi.length-1) { reJSON += ',' }
+      if (j<ankieta.pytania[i].odpowiedzi.length-1) { reJSONString += ',' }
 	}
-    reJSON = reJSON + ']}';
-    if (i<ankieta.pytania.length-1) { reJSON += ',' }
+    reJSONString = reJSONString + ']}';
+    if (i<ankieta.pytania.length-1) { reJSONString += ',' }
   }
-  reJSON += ']}'
-  console.log(reJSON);
-  //var reString = JSON.stringify(reJSON);
-  //var reString = "'" + reJson "'";
+  reJSONString += ']}'
+  console.log(reJSONString);
+  //var reString = JSON.stringify(reJSONString);
+  //var reString = "'" + reJSONString "'";
   //console.log(reString);
   $.post/*ajax*/({
     type: "POST",
     crossDomain: true,
     url:"https://s410380.students.wmi.amu.edu.pl/ankieta.html", //można usunąć "http:"/"https:" dla spójności z domenami obsługującymi inny protokół
     contentType: "application/json",
-    data: reJSON,
+    data: reJSONString,
   })
   .done(function() {
     console.log( "done" )
