@@ -42,6 +42,7 @@ function parseURLParams() { // funkcja odpowiedzialna za pobieranie danych query
     }
     //document.getElementById("querytestdiv") = parms;
     console.log(parms);
+    console.log(JSON.stringify(parms));
     //console.log(JSON.stringify(parms));
     return parms;
 }
@@ -55,10 +56,13 @@ var ankieta = JSON.parse(ankietaString);
 
 function uncheckAllCheckboxes(){; //Funkcjonalność przycisku "Reset" na ekranie wypełniania ankiety
   if (confirm("Na pewno chcesz usunąć zapisane odpowiedzi?")==true) {
-    $("input[type='checkbox']").prop("checked", false);
-    $("input[type='radio']").prop("checked", false);
+    $("input[type='checkbox'], input[type='radio']").prop("checked", false);
   }  
   console.log("Pressed Reset button");
+}
+
+function closeAnkieta(){ // Zastępuje ankietę tekstem podziękowania za uczestnictwo po jej zatwierdzeniu
+  document.getElementById("main").innerHTML="Ankieta została wysłana.<br>Dziękujemy!";
 }
 
 function receiveAnkietaData(){
@@ -110,7 +114,7 @@ function iterateJSON(){ // tworzy ankietę na podstawie JSON-a (który powinien 
     }
     $("#ankieta_container").append("<br>");
   }
-  $("#ankieta_container").append("<button onmousedown='getFilledAnkieta(); document.getElementById(\"main\").innerHTML=\"Ankieta została wysłana.\nDziękujemy!\"'>Zatwierdź</button>");
+  $("#ankieta_container").append("<button onclick='getFilledAnkieta(); closeAnkieta()'>Zatwierdź</button>");
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
 }
  
