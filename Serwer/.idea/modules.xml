@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TAS.iml" filepath="$PROJECT_DIR$/.idea/TAS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/07 Storage - projekt.iml" filepath="$PROJECT_DIR$/.idea/modules/07 Storage - projekt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/07_Storage_-_projekt_main.iml" filepath="$PROJECT_DIR$/.idea/modules/07_Storage_-_projekt_main.iml" group="07 Storage - projekt" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/07_Storage_-_projekt_test.iml" filepath="$PROJECT_DIR$/.idea/modules/07_Storage_-_projekt_test.iml" group="07 Storage - projekt" />
     </modules>
   </component>
 </project>
