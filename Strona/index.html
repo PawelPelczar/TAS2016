@@ -37,10 +37,10 @@
 
 <section id="login">
 <p><strong>login:</strong> 
-  <input maxlength="25" size="30" name="login" placeholder="Login"></p>
+  <input autofocus id="log" maxlength="25" size="30" name="login" placeholder="Login" onkeydown="if(event.keyCode==13) document.getElementById('psw').focus()"></p>
 <p><strong>password:</strong> 
-  <input type="password" maxlength="25" size="30" name="password" placeholder="Password"></p>
-<p><input class="login-button" type="submit" onClick='location.href="log_in.html"' value="Login!"></p>
+  <input type="password" id="psw" maxlength="25" size="30" name="password" placeholder="Password" onkeydown="if(event.keyCode==13) document.getElementById('btn').click()"></p>
+<p><input type="submit" class="login-button" id="btn" onclick="isUser()" value="Login!"></p>
 </section>
 
 <!-- sidebar -->
