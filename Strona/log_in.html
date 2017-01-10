@@ -19,12 +19,13 @@
  
  
 <section id="login">
-<p align="right"><strong>login:</strong> 
-  <input maxlength="25" size="30" name="login" placeholder="Login"></p>
-<p align="right"><strong>password:</strong> 
-  <input type="password" maxlength="25" size="30" name="password" placeholder="Password"></p>
-<p align="right"><input type="submit" value="Login!"></p>
+<p><strong>login:</strong> 
+  <input autofocus id="log" maxlength="25" size="30" name="login" placeholder="Login" onkeydown="if(event.keyCode==13) document.getElementById('psw').focus()"></p>
+<p><strong>password:</strong> 
+  <input type="password" id="psw" maxlength="25" size="30" name="password" placeholder="Password" onkeydown="if(event.keyCode==13) document.getElementById('btn').click()"></p>
+<p><input type="submit" class="login-button" id="btn" onclick="isUser()" value="Login!"></p>
 </section>
+	
 <!-- sidebar -->
 	
 <aside>
