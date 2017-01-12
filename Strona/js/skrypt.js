@@ -191,3 +191,21 @@ function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu
   });
   //document.getElementById("main").innerHTML=("Dziękujemy za wypełnienie ankiety!");
 }
+
+function isUser(){
+	f=0
+	for(i=0;i<user.userz.length;i++){
+	   if(document.getElementById("log").value==user.userz[i].name && document.getElementById("psw").value==user.userz[i].password){
+		   f=1
+		   location.href='log_in.html'
+		   alert("Logged!");
+		   break
+		}
+		else{
+			continue
+		}
+	}
+	if (f==0){
+		alert("No!");
+	}
+}
