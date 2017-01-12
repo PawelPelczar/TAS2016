@@ -81,6 +81,31 @@ function receiveAnkietaData(){
   //});
 }
 
+function validateAnkieta(){
+  var okToClose = true;
+  
+  $("#ankieta_container").children(".questionContainingP").each(function(i) {
+    goodToGo = false;
+    $(this).children("input").each(function(){
+      if( this.checked == true ) {goodToGo = true; console.log("question with id= " + this.id + " detected as checked");}
+      //console.log("wykonano iterację po P");
+    })
+    if (goodToGo == false){
+      //console.log("Nie wypełniono pytania ");
+      alert("Nie wszystkie pytania zostały wypełnione!");
+      okToClose = false;
+      return false;
+    }
+    //console.log("wykonano iterację validateAnkieta");
+  });
+  
+  if (okToClose == true){
+    //console.log("wykonanie funkcji zamykających ankietę");
+    getFilledAnkieta();
+    closeAnkieta();
+  }
+}
+
 function iterateJSON(){ // tworzy ankietę na podstawie JSON-a (który powinien byc otrzymywany z serwera)
   $("#ankieta_container").html("");
   //var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
@@ -99,6 +124,12 @@ function iterateJSON(){ // tworzy ankietę na podstawie JSON-a (który powinien 
     } else {
       $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.pytania[i].pytanie + "</b> (proszę wybrać jedną odpowiedź):</div>");
     }
+    
+    var p = document.createElement("P");
+    p.id = "an"+i;
+    p.className = "questionContainingP";
+    $("#ankieta_container").append(p);
+    
     for(var j = 0; j < ankieta.pytania[i].odpowiedzi.length; j++){
       var checkbox = document.createElement("input");
       var label = document.createElement("label");
@@ -108,15 +139,16 @@ function iterateJSON(){ // tworzy ankietę na podstawie JSON-a (który powinien 
       checkbox.type = checkboxType;
       label.htmlFor = checkbox.id;
       label.appendChild(document.createTextNode(" " + ankieta.pytania[i].odpowiedzi[j]));
-      document.getElementById("ankieta_container").appendChild(checkbox);
-      document.getElementById("ankieta_container").appendChild(label);
-      $("#ankieta_container").append("<br>");
+      //document.getElementById("ankieta_container").appendChild(checkbox);
+      p.appendChild(checkbox);
+      //document.getElementById("ankieta_container").appendChild(label);
+      p.appendChild(label);
+      $("#an"+i).append("<br>");
     }
     $("#ankieta_container").append("<br>");
   }
-  $("#ankieta_container").append("<button onclick='getFilledAnkieta(); closeAnkieta()'>Zatwierdź</button>");
+  $("#ankieta_container").append("<button onclick='validateAnkieta()'>Zatwierdź</button>");
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
-}
  
 function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu wypełniania ankiety- zbiera dane z zaznaczonych pól, buduje obiekt JSON i wysyła do serwera
   console.log("Data for: " + Date());
@@ -158,25 +190,4 @@ function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu
     console.log( "finished" );
   });
   //document.getElementById("main").innerHTML=("Dziękujemy za wypełnienie ankiety!");
-}
-
-var userString='{"userz":[{"id":111,"name":"user1","password":"passw1"},{"id":112,"name":"user2","password":"passw2"}]}';
-var user = JSON.parse(userString);
-
-function isUser(){
-	f=0
-	for(i=0;i<user.userz.length;i++){
-	   if(document.getElementById("log").value==user.userz[i].name && document.getElementById("psw").value==user.userz[i].password){
-		   f=1
-		   location.href='log_in.html'
-		   alert("Logged!");
-		   break
-		}
-		else{
-			continue
-		}
-	}
-	if (f==0){
-		alert("No!");
-	}
 }
