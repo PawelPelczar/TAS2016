@@ -66,12 +66,30 @@ function closeAnkieta(){ // Zastępuje ankietę tekstem podziękowania za uczest
 }
 
 
+function requestSurveyList(){
+  //var listJSON = {"surveys":[{"id":"1111","title":"ankieta1","pytania":[{"idPyt":0,"pytanie":"pyt1","rodzaj":"single","odpowiedzi":["odp1-1","odp1-2"]},{"idPyt":0,"pytanie":"pyt2","rodzaj":"single","odpowiedzi":["odp2-1","odp2-2"]}]},{"id":"1112","title":"ankieta2","pytania":[{"idPyt":0,"pytanie":"pyt1","rodzaj":"single","odpowiedzi":["odp1-1","odp1-2"]},{"idPyt":0,"pytanie":"pyt2","rodzaj":"single","odpowiedzi":["odp2-1","odp2-2","odp2-3"]}]}]}
+  $.ajax({
+    type: "POST",
+    url: "http://kedzierski,herokuapp.com/@@@@@@@@@@@@@@@@@@@@@@@@",
+    crossDomain: true,
+    data: reJSONString,
+    dataType: "application/json",
+    contentType: "application/json",
+    success: function(responseData, textStatus, jqXHR){
+      console.log("requestSurveyList successful");
+    }
+    error: function(responseData, textStatus, errorThrown){
+      console.log("requestSurveyList failed");
+    }
+  });
+  
+  return listJSON;
+}
+
+
 function displaySurveyList(){
   $("#surveyListContainer").empty();
   var listJSON = requestSurveyList();
-  console.log(listJSON);
-  console.log(listJSON.surveys[0].title);
-  console.log(listJSON.surveys[1].title);
   
   var list = document.createElement("DIV");
   list.className = "surveyList";
@@ -96,21 +114,30 @@ function displaySurveyList(){
 }
 
 
-function receiveAnkietaData(){
+function receiveAnkietaData(id){
   //$(document).ready(function() {
+    var ankietaString;
     $.ajax({
-      crossDomain: true,
-      contentType: "application/json",
       type: "GET",
-      url: "https://s410380.students.wmi.amu.edu.pl/ankieta.html",
-      data: { get_data: ankieta, id: 123},
-      success: function(data){
-        ankietaString = data;
-        iterateJSON();
-      }
+      url: "http://kedzierski.herokuapp.com/@@@@@@@@@@@@@@@"+id,
+      crossDomain: true,
+      data: ankietaString,
+      dataType: "application/json",
+      contentType: "application/json",
+    })
+    .done(function() {
+      console.log( "done" );
+    })
+    .fail(function() {
+      console.log( "fail" );
+    })
+    .always(function() {
+      console.log( "finished" );
     });
+    return ankietaString;
   //});
 }
+
 
 function validateAnkieta(){
   var okToClose = true;
@@ -137,9 +164,13 @@ function validateAnkieta(){
   }
 }
 
-function iterateJSON(){ // tworzy ankietę na podstawie JSON-a (który powinien byc otrzymywany z serwera)
-  $("#ankieta_container").html("");
+
+function displaySruvey(){ // tworzy ankietę na podstawie JSON-a (który powinien byc otrzymywany z serwera)
+  $("#ankieta_container").empty();
   //var ankietaString = '{"id":123,"title":"Test JSON- ankieta","pytania":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
+  var URLparams = parseURLParams();
+  var surveyID = URLparams.surveyID[0];
+  var ankietaString = receiveAnkietaData(surveyID);
   var ankieta = JSON.parse(ankietaString);
   
   for(var i=0; i<ankieta.pytania.length; i++){
@@ -180,7 +211,9 @@ function iterateJSON(){ // tworzy ankietę na podstawie JSON-a (który powinien 
   }
   $("#ankieta_container").append("<button onclick='validateAnkieta()'>Zatwierdź</button>");
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
- 
+}
+
+
 function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu wypełniania ankiety- zbiera dane z zaznaczonych pól, buduje obiekt JSON i wysyła do serwera
   console.log("Data for: " + Date());
   var reJSONString = '{"id":'+ankieta.id+',"pytania":[';
@@ -204,12 +237,13 @@ function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu
   //var reString = JSON.stringify(reJSONString);
   //var reString = "'" + reJSONString "'";
   //console.log(reString);
-  $.post/*ajax*/({
+  $.ajax({
     type: "POST",
+    url: "http://kedzierski,herokuapp.com/@@@@@@@@@@@@@@@@@@@@@@@@",
     crossDomain: true,
-    url:"https://s410380.students.wmi.amu.edu.pl/ankieta.html", //można usunąć "http:"/"https:" dla spójności z domenami obsługującymi inny protokół
-    contentType: "application/json",
     data: reJSONString,
+    dataType: "application/json",
+    contentType: "application/json",
   })
   .done(function() {
     console.log( "done" )
@@ -222,6 +256,7 @@ function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu
   });
   //document.getElementById("main").innerHTML=("Dziękujemy za wypełnienie ankiety!");
 }
+
 
 function isUser(){
 	f=0
