@@ -65,6 +65,37 @@ function closeAnkieta(){ // Zastępuje ankietę tekstem podziękowania za uczest
   document.getElementById("main").innerHTML="Ankieta została wysłana.<br>Dziękujemy!";
 }
 
+
+function displaySurveyList(){
+  $("#surveyListContainer").empty();
+  var listJSON = requestSurveyList();
+  console.log(listJSON);
+  console.log(listJSON.surveys[0].title);
+  console.log(listJSON.surveys[1].title);
+  
+  var list = document.createElement("DIV");
+  list.className = "surveyList";
+  $("#surveyListContainer").append(list);  
+  if(listJSON.surveys.length == 0){
+    document.getElementById("surveyListContainer").innerHTML = "Nie otrzymano ankiet do wyświetlenia.";
+  } else if(listJSON.surveys.length < 0) {
+    document.getElementById("surveyListContainer").innerHTML = "Coś poszło nie tak.";
+  } else {
+    for(var i = 0; i < listJSON.surveys.length; i++){
+      var element = document.createElement("P");
+      element.className = "surveyListElement";
+      
+      var link = document.createElement("A");
+      link.href = "ankieta.html?surveyID=" + listJSON.surveys[i].id;
+      var title = document.createTextNode(listJSON.surveys[i].title);
+      link.appendChild(title);
+      element.appendChild(link);
+      list.appendChild(element);
+    }
+  }
+}
+
+
 function receiveAnkietaData(){
   //$(document).ready(function() {
     $.ajax({
