@@ -118,7 +118,7 @@ function validateAnkieta(){
   $("#ankieta_container").children(".questionContainingP").each(function(i) {
     goodToGo = false;
     $(this).children("input").each(function(){
-      if( this.checked == true ) {goodToGo = true; console.log("question with id= " + this.id + " detected as checked");}
+      if( this.checked == true ) {goodToGo = true;}
       //console.log("wykonano iterację po P");
     })
     if (goodToGo == false){
