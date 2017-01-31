@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>Dodawanie ankiety</title>
+  <meta name="author" content="Dawid Kędzierski"/>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="css/addSurvey/normalize.css">
+  <link rel="stylesheet" href="css/addSurvey/skeleton.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/addSurvey.js"></script>
+  <script>
+	   checkRights()
+  </script>
+</head>
+<body>
+  <div class="container" style="margin-top: 5%">
+    <h3 style="text-align: center">Dodawanie ankiety</h3>
+    <label for="titleOfSurvey">Tytuł ankiety:</label>
+    <input class="u-full-width" type="text" placeholder="Na przykład: Ankieta o muzyce" id="titleOfSurvey">
+    <div id="question"></div>
+    <div id="questionMenu">
+      <div class="row">
+        <div class="four columns">
+          <label for="typeOfQuestion">Typ odpowiedzi</label>
+          <select id="typeOfQuestion">
+            <option value="single">Jednokrotnego wyboru</option>
+            <option value="multiple">Wielokrotnego wyboru</option>
+          </select>
+        </div>
+        <div class="four columns">
+          <label for="pushQuestion">Dodaj pytanie do ankiety:</label>
+          <input type="submit" value="Dodaj!" id="pushQuestion" onclick="pushQuestion()">
+        </div>
+      </div>
+    </div>
+    <div id="error"></div>
+    <div id="survey"></div>
+  </div>
+  <!-- <script src="js/jquery-3.1.1.min.js"></script> -->
+  <script type="text/javascript" src="js/addSurvey.js"></script>
+  <!-- <script src="js/jquery-3.1.1.min.js"></script> -->
+</body>
+</html>
