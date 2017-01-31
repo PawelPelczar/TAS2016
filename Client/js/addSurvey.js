@@ -156,7 +156,7 @@ function sendSurvey() {
 
         $.ajax({
             type: 'POST',
-            url: 'http://150.254.79.207:8080/mongo/surveys',
+            url: 'http://150.254.79.14:8080/mongo/surveys',
             crossDomain: true,
             data: survey,
             dataType: "application/json",

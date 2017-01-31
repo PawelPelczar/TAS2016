@@ -1,19 +1,4 @@
-
-
-var serverURL = "http://150.254.79.74:8080";
-
-
-
-
-
-
-
-
-
-
-
-
-
+var serverURL = "http://150.254.79.14:8080";
 
 
 var screenHeight;
@@ -74,7 +59,7 @@ function getUserByID(){
     contentType: "html/String",
     data: {"id":ID},
   })
-  //document.getElementById("userDataContainer").innerHTML = 
+  //document.getElementById("userDataContainer").innerHTML =
 }
 
 
@@ -88,7 +73,7 @@ var ankieta = JSON.parse(ankietaString);
 function uncheckAllCheckboxes(){; //Funkcjonalność przycisku "Reset" na ekranie wypełniania ankiety
   if (confirm("Na pewno chcesz usunąć zapisane odpowiedzi?")==true) {
     $("input[type='checkbox'], input[type='radio']").prop("checked", false);
-  }  
+  }
   console.log("Pressed Reset button");
 }
 
@@ -99,9 +84,9 @@ function closeAnkieta(){ // Zastępuje ankietę tekstem podziękowania za uczest
 
 
 function requestSurveyList(){
-  listJSON = {"surveys":[{"id":"1111","title":"ankieta1","questions":[{"idPyt":0,"pytanie":"pyt1","rodzaj":"multiple","odpowiedzi":["odp1-1","odp1-2","odp1-3"]},{"idPyt":0,"pytanie":"pyt2","rodzaj":"single","odpowiedzi":["odp2-1","odp2-2"]}]},{"id":"1112","title":"ankieta2","questions":[{"idPyt":0,"pytanie":"pyt1","rodzaj":"single","odpowiedzi":["odp1-1","odp1-2"]},{"idPyt":0,"pytanie":"pyt2","rodzaj":"single","odpowiedzi":["odp2-1","odp2-2","odp2-3"]}]}]}
-  //var listJSON = "";
-  /*$.ajax({
+  // listJSON = {"surveys":[{"id":"1111","title":"ankieta1","questions":[{"idPyt":0,"pytanie":"pyt1","rodzaj":"multiple","odpowiedzi":["odp1-1","odp1-2","odp1-3"]},{"idPyt":0,"pytanie":"pyt2","rodzaj":"single","odpowiedzi":["odp2-1","odp2-2"]}]},{"id":"1112","title":"ankieta2","questions":[{"idPyt":0,"pytanie":"pyt1","rodzaj":"single","odpowiedzi":["odp1-1","odp1-2"]},{"idPyt":0,"pytanie":"pyt2","rodzaj":"single","odpowiedzi":["odp2-1","odp2-2","odp2-3"]}]}]}
+  var listJSON = "";
+  $.ajax({
     type: "GET",
     url: serverURL + "/mongo/surveys",
     crossDomain: true,
@@ -109,28 +94,24 @@ function requestSurveyList(){
     dataType: "application/json",
     contentType: "application/json",
     async: false,
-    
+
     success: function(responseData, textStatus, jqXHR){
       console.log("requestSurveyList successful");
       listJSON += responseData.responseText;
-    },*/
-    /*error: function(responseData, textStatus, errorThrown){
-      console.log("requestSurveyList failed");
-      listJSON = responseData.responseText;
-    },*/
-    /*statusCode: {
+    },
+    statusCode: {
       200: function(xhr) {
         console.log("Success");
         listJSON = xhr.responseText;
       }
-    },
+    }
   });
   if (listJSON == "" || listJSON == "undefined") { console.log("JSON z listą ankiet jest pusty!"); return listJSON; }
   listJSON = "{\"surveys\":" + listJSON + "}";
   console.log(listJSON);
   listJSON = JSON.parse(listJSON);
   console.log(listJSON);
-  console.log("it is done");*/
+  console.log("it is done");
   return listJSON;
 }
 
@@ -141,10 +122,10 @@ function displaySurveyList(){
   if (typeof(Storage) !== "undefined") {
     sessionStorage.setItem("surveyList", JSON.stringify(surveyList));
   }
-  
+
   var list = document.createElement("DIV");
   list.className = "surveyList";
-  $("#surveyListContainer").append(list);  
+  $("#surveyListContainer").append(list);
   if(surveyList.surveys.length == 0){
     document.getElementById("surveyListContainer").innerHTML = "Nie otrzymano ankiet do wyświetlenia.";
   } else if(surveyList.surveys.length < 0) {
@@ -153,7 +134,7 @@ function displaySurveyList(){
     for(var i = 0; i < surveyList.surveys.length; i++){
       var element = document.createElement("P");
       element.className = "surveyListElement";
-      
+
       var link = document.createElement("A");
       link.href = "ankieta.html?surveyID=" + surveyList.surveys[i].id;
       var title = document.createTextNode(surveyList.surveys[i].title);
@@ -166,7 +147,6 @@ function displaySurveyList(){
 
 
 function receiveAnkietaData(id){
-  //$(document).ready(function() {
     var ankietaString;
     var surveyListString = sessionStorage.getItem("surveyList");
     var surveyList = JSON.parse(surveyListString);
@@ -179,32 +159,12 @@ function receiveAnkietaData(id){
     var survey = surveyList.surveys[i];
     sessionStorage.setItem("survey", JSON.stringify(survey));
     return JSON.stringify(survey);
-    
-    /*$.ajax({
-      type: "GET",
-      url: "http://kedzierski.herokuapp.com/@@@@@@@@@@@@@@@"+id,
-      crossDomain: true,
-      data: ankietaString,
-      dataType: "application/json",
-      contentType: "application/json",
-    })
-    .done(function() {
-      console.log( "done" );
-    })
-    .fail(function() {
-      console.log( "fail" );
-    })
-    .always(function() {
-      console.log( "finished" );
-    });
-    return ankietaString;*/
-  //});
 }
 
 
 function validateAnkieta(){
   var okToClose = true;
-  
+
   $("#ankieta_container").children(".questionContainingP").each(function(i) {
     goodToGo = false;
     $(this).children("input").each(function(){
@@ -219,7 +179,7 @@ function validateAnkieta(){
     }
     //console.log("wykonano iterację validateAnkieta");
   });
-  
+
   if (okToClose == true){
     //console.log("wykonanie funkcji zamykających ankietę");
     getFilledAnkieta();
@@ -234,7 +194,7 @@ function displaySurvey(){ // tworzy ankietę na podstawie JSON-a (który powinie
   var surveyID = URLparams.surveyID[0];
   var ankietaString = receiveAnkietaData(surveyID);
   var ankieta = JSON.parse(ankietaString);
-  
+
   for(var i=0; i<ankieta.questions.length; i++){
     var checkboxType;
     if (ankieta.questions[i].rodzaj=="multiple") {
@@ -242,18 +202,18 @@ function displaySurvey(){ // tworzy ankietę na podstawie JSON-a (który powinie
     } else {
       checkboxType = "radio";
     }
-    
+
     if (checkboxType=="checkbox") {
       $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.questions[i].pytanie + "</b> (proszę wybrać jedną lub więcej odpowiedzi):</div>");
     } else {
       $("#ankieta_container").append("<div class='ankieta_pytanie'><b>" + ankieta.questions[i].pytanie + "</b> (proszę wybrać jedną odpowiedź):</div>");
     }
-    
+
     var p = document.createElement("P");
     p.id = "an"+i;
     p.className = "questionContainingP";
     $("#ankieta_container").append(p);
-    
+
     for(var j = 0; j < ankieta.questions[i].odpowiedzi.length; j++){
       var checkbox = document.createElement("input");
       var label = document.createElement("label");
@@ -274,9 +234,9 @@ function displaySurvey(){ // tworzy ankietę na podstawie JSON-a (który powinie
   $("#ankieta_container").append("<button onclick='validateAnkieta()'>Zatwierdź</button>");
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
 }
- 
- 
-function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu wypełniania ankiety- zbiera dane z zaznaczonych pól, buduje obiekt JSON i wysyła do serwera 
+
+
+function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu wypełniania ankiety- zbiera dane z zaznaczonych pól, buduje obiekt JSON i wysyła do serwera
   console.log("Data for: " + Date());
   var ankieta = JSON.parse(sessionStorage.getItem("survey"));
   var reJSONString = '{"id":"'+ankieta.id+'","questions":[';
@@ -299,19 +259,9 @@ function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu
   }
   reJSONString += ']}'
   console.log(reJSONString);
-  
+
   closeAnkieta();
-  //var reString = JSON.stringify(reJSONString);
-  //var reString = "'" + reJSONString "'";
-  //console.log(reString);
-  
-  /*$.post({
-    url:"//150.254.79.20:8080/mongo/surveys", //można usunąć "http:"/"https:" dla spójności z domenami obsługującymi inny protokół
-    type: "POST",
-    crossDomain: true,
-    contentType: "application/json",
-    data: reJSONString,
-  })*/
+
   $.ajax({
     type: "POST",
     url: serverURL + "/mongo/results",
@@ -327,7 +277,6 @@ function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu
     }
   });
   console.log("Wysłane");
-  //document.getElementById("main").innerHTML=("Dziękujemy za wypełnienie ankiety!");
 }
 
 

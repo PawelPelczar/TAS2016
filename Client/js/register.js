@@ -1,23 +1,23 @@
 function validateForm() {
 	var wszystko_OK = true;
-	
-	//Sprawdzanie loginu (d³ugoœæ)
+
+	//Sprawdzanie loginu (dï¿½ugoï¿½ï¿½)
 	var val_login = document.forms["myForm"]["nazwa_uzytkownika"].value;
 	if (val_login.length <3 || val_login.length >20) {
-		alert("Login musi mieæ 3-20 znaków.");
+		alert("Login musi mieï¿½ 3-20 znakï¿½w.");
 		wszystko_OK = false;
 		return false;
 	}
-	
+
 	//Sprawdzenie loginu (znaki alfanumeryczne)
 	var alphanum_regex = /^[a-z0-9]+$/i;
 	var res = alphanum_regex.test(val_login);
 	if (res==false){
-		alert("Login musi sk³adaæ siê tylko z liter i cyfr (bez polskich znaków)");
+		alert("Login musi skï¿½adaï¿½ siï¿½ tylko z liter i cyfr (bez polskich znakï¿½w)");
 		wszystko_OK = false;
 		return false;
 	}
-	
+
 	//Sprawdzanie maila (format)
 	var val_email = document.forms["myForm"]["e-mail"].value;
 	var email_format = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
@@ -28,24 +28,24 @@ function validateForm() {
 		wszystko_OK = false;
 		return false;
 	}
-	
-	//Sprawdzanie has³a (d³ugoœæ)
+
+	//Sprawdzanie hasï¿½a (dï¿½ugoï¿½ï¿½)
 	var val_haslo1 = document.forms["myForm"]["haslo1"].value;
 	var val_haslo2 = document.forms["myForm"]["haslo2"].value;
 	if (val_haslo1.length <8 || val_haslo2.length >20) {
-		alert("Has³o musi mieæ 8-20 znaków.");
-		wszystko_OK = false;
-		return false;
-	}
-	
-	//Sprawdzanie has³a (czy s¹ identyczne)
-	if (val_haslo1 != val_haslo2){
-		alert("Has³a nie s¹ identyczne.");
+		alert("Hasï¿½o musi mieï¿½ 8-20 znakï¿½w.");
 		wszystko_OK = false;
 		return false;
 	}
 
-	//Wysy³anie JSONA podczas rejestracji
+	//Sprawdzanie hasï¿½a (czy sï¿½ identyczne)
+	if (val_haslo1 != val_haslo2){
+		alert("Hasï¿½a nie sï¿½ identyczne.");
+		wszystko_OK = false;
+		return false;
+	}
+
+	//Wysyï¿½anie JSONA podczas rejestracji
 	if (wszystko_OK = true){
 		var nazwa_uzytkownika = document.querySelector('input[name="nazwa_uzytkownika"]').value;
 		var haslo = document.querySelector('input[name="haslo1"]').value;
@@ -53,10 +53,10 @@ function validateForm() {
 		if (nazwa_uzytkownika != "") {
 			var users = `{"name": "${nazwa_uzytkownika}", "pass": "${haslo}", "email": "${email}"}`;
 			console.log(users);
-			
+
 			$.ajax({
 				type: 'POST',
-				url: 'http://150.254.79.83:8080/mongo/users',
+				url: 'http://150.254.79.14:8080/mongo/users',
 				crossDomain: true,
 				data: users,
 				dataType: "application/json",
@@ -74,9 +74,8 @@ function validateForm() {
 		}
 		return false;
 	}
-}	
+}
 
-//Wysy³anie JSONA podczas logowania
 function sendLogin() {
 	var login = document.querySelector('input[name="login"]').value;
 	var haslo = document.querySelector('input[name="haslo"]').value;
@@ -86,24 +85,22 @@ function sendLogin() {
 
 		$.ajax({
 		  type: 'POST',
-		  url: 'http://150.254.79.83:8080/mongo/users/login',
+		  url: 'http://150.254.79.14:8080/mongo/users/login',
 		  crossDomain: true,
 		  data: users,
 		  dataType: "application/json",
 		  contentType: "application/json",
 		  statusCode: {
-			200: function(xhr) {
-			alert("Success 200");
-			}
+				200: function(xhr) {
+					console.log("Success 200");
+				}
 		  },
 		  success: function(responseData, textStatus, jqXHR) {
 			  value = responseData.someKey;
 			  sessionStorage.token = responseData;
 			  console.log(responseData);
-			  alert("Success");
 		  }
 		});
-		alert("Wys³ane");
 	}
 	return false;
 }
