@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Projekt TAS</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="js/skrypt.js"></script>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  
+  <script src="./js/register.js"></script>
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+ 
+<div id="container">
+ 
+<!-- header -->
+<header>
+		<img class="u-full-width" src="images/ankieta4.png" alt="" align="middle">
+</header>
+
+
+  <!-- Navbar
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<ul class="topnav">
+		<li><a href="index.html">Start</a></li>
+		<li><a href="o_stronie.html">O stronie</a></li>
+		<li><a href="lista_ankiet.html">Lista ankiet</a></li>
+		<li><a href="ankieta.html">Wypełnij ankietę</a></li>
+		<li><a href="addSurvey.html">Dodaj ankietę</a></li>
+		<li><a href="kontakt.html">Kontakt</a></li>
+		<li class="right"><a class="zarejestruj" href="rejestracja.html">Zarejestruj się!</a></li>
+		
+		<li class="dropdown right">
+		<a class="zaloguj" href="javascript:void(0)" class="dropbtn">Zaloguj się!</a>
+		<div class="dropdown-content">
+		
+		<form name="login" onsubmit="return sendLogin()"  method="post">
+			<div>
+				<label for="login">Login</label>
+				<input class="u-full-width" type="text" maxlength="25" placeholder="Login" name="login">
+			</div>
+			<div>
+				<label for="hasło">Hasło</label>
+				<input class="u-full-width" type="password" maxlength="25" placeholder="Hasło" name="haslo">
+			</div>
+			<div>
+				<input class="button-primary u-pull-right" type="submit" value="Login!">
+			</div>
+		</form>
+		
+		</div>
+	  </li>
+</ul>
+
+
+<!-- main -->
+
+<section id="main">
+
+<div class="container">
+	<div class="row">
+		<div class="twelwe columns content">
+			<form name="myForm" onsubmit="return validateForm()" method="post">
+				<div>
+					<label for="nazwa_uzytkownika">Nazwa użytkownika</label>
+					<input class="u-full-width" type="text" maxlength="25" placeholder="Nazwa użytkownika" name="nazwa_uzytkownika">
+				</div>
+
+				<div>
+					<label for="hasło">Hasło</label>
+					<input class="u-full-width" type="password" maxlength="25" placeholder="Hasło" name="haslo1">
+				</div>
+				
+				<div>
+					<label for="hasło">Powtórz hasło</label>
+					<input class="u-full-width" type="password" maxlength="25" placeholder="Hasło" name="haslo2">
+				</div>
+				
+				<div>
+					<label for="e-mail">E-mail</label>
+					<input class="u-full-width" type="email" maxlength="25" placeholder="E-mail" name="e-mail">
+				</div>
+				<!--
+				<div class="g-recaptcha" data-sitekey="6LdErBIUAAAAAP42a8u5EL07tAMd21_yTWf-AlNS"></div>
+				-->
+				<div>
+					<input class="button-primary u-pull-right" type="submit" value="Zarejestruj się!">
+				</div>
+				
+				<!-- Powtorz haslo, captcha?  Coś jeszcze? -->
+			</form>
+		</div>
+	</div>
+</div>
+
+
+</section>
+<section id="undermain"></section>
+
+</div>
+</body>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</html>
