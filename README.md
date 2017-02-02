@@ -1,0 +1,1 @@
+Grzegorz, proszê wstaw tutaj najbardziej aktualny kod strony.
