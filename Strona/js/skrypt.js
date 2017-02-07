@@ -1,4 +1,4 @@
-var serverURL = "http://150.254.79.19:8080";
+var serverURL = "localhost:8080";
 
 var screenHeight;
 var screenWidth;

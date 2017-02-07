@@ -56,7 +56,7 @@ function validateForm() {
 
 			$.ajax({
 				type: 'POST',
-				url: 'http://150.254.79.19:8080/mongo/users',
+				url: 'localhost:8080/mongo/users',
 				crossDomain: true,
 				data: users,
 				dataType: "application/json",
@@ -86,7 +86,7 @@ function sendLogin() {
 
 		$.ajax({
 		  type: 'POST',
-		  url: 'http://150.254.79.19:8080/mongo/users/login',
+		  url: 'localhost:8080/mongo/users/login',
 		  crossDomain: true,
 		  data: users,
 		  dataType: "application/json",

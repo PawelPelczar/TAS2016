@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<body>
+<br/><br/>
+<div id="title" style="font-size:26px;margin-left:50px;max-width: 300px;"></div>
+<br/><br/>
+<canvas id="can" width="200" height="200" style="margin-left:40px;"></canvas>
+<br/><br/>
+
+<span id="green" style ="color:green; margin-left:50px"></span>
+<br/>
+<span id="blue" style ="color:blue; margin-left:50px""></span>
+<br/>
+<span id="red" style ="color:red;margin-left:50px""></span>
+<br/><br/>
+
+
+<script>
+
+function requestResult(){
+  //listJSON = {"surveys":[{"id":"1111","title":"ankieta1","questions":[{"idPyt":0,"pytanie":"pyt1","rodzaj":"multiple","odpowiedzi":["odp1-1","odp1-2","odp1-3"]},{"idPyt":0,"pytanie":"pyt2","rodzaj":"single","odpowiedzi":["odp2-1","odp2-2"]}]},{"id":"1112","title":"ankieta2","questions":[{"idPyt":0,"pytanie":"pyt1","rodzaj":"single","odpowiedzi":["odp1-1","odp1-2"]},{"idPyt":0,"pytanie":"pyt2","rodzaj":"single","odpowiedzi":["odp2-1","odp2-2","odp2-3"]}]}]}
+  var listJSON = "";
+  var serverURL = "http://localhost:8080"
+  $.ajax({
+    type: "GET",
+    url: serverURL + "/mongo/results/1/2",
+    crossDomain: true,
+    data: listJSON,
+    dataType: "application/json",
+    contentType: "application/json",
+    async: false,
+
+    success: function(responseData, textStatus, jqXHR){
+      console.log("requestSurveyList successful");
+      listJSON += responseData.responseText;
+    },
+    /*error: function(responseData, textStatus, errorThrown){
+      console.log("requestSurveyList failed");
+      listJSON = responseData.responseText;
+    },*/
+    statusCode: {
+      200: function(xhr) {
+        console.log("Success");
+        listJSON = xhr.responseText;
+      }
+    },
+  });
+ return listJSON
+ }
+
+//var obj = JSON.parse('{ "surveyId":"1", "questionId": "2", "title":"Tytu³", "answers": ["Tak", "Owszem", "Dzia³a"], "quantity": [17, 23, 10]}');
+var j = requestResult();
+var obj = JSON.parse(j);
+
+
+
+var divi = obj.quantity[1]+obj.quantity[0]+obj.quantity[2];
+var jeden = Math.floor(obj.quantity[0]/divi*100);
+var dwa = Math.floor(obj.quantity[1]/divi*100);
+var trzy = 100-jeden-dwa;
+
+document.getElementById("title").innerHTML = obj.title;
+document.getElementById("green").innerHTML = obj.answers[0] + ": " + jeden + "% ";
+document.getElementById("blue").innerHTML = obj.answers[1] + ": " + dwa + "% ";
+document.getElementById("red").innerHTML = obj.answers[2] + ": " + trzy + "% ";
+
+var canvas = document.getElementById("can");
+var ctx = canvas.getContext("2d");
+var lastend = 0;
+var data = [jeden,dwa,trzy];
+var myTotal = 0;
+var myColor = ['green','blue','red'];
+
+for(var e = 0; e < data.length; e++)
+{
+  myTotal += data[e];
+}
+
+for (var i = 0; i < data.length; i++) {
+ctx.fillStyle = myColor[i];
+ctx.beginPath();
+ctx.moveTo(canvas.width/2,canvas.height/2);
+ctx.arc(canvas.width/2,canvas.height/2,canvas.height/2,lastend,lastend+(Math.PI*2*(data[i]/myTotal)),false);
+ctx.lineTo(canvas.width/2,canvas.height/2);
+ctx.fill();
+lastend += Math.PI*2*(data[i]/myTotal);
+}
+
+</script>
+
+</body>
+</html>
