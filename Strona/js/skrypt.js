@@ -267,6 +267,7 @@ function displaySurvey(){ // tworzy ankietę na podstawie JSON-a (który powinie
   }
   
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
+  $("#ankieta_container").append("<button onclick='validateAnkieta()'>Zatwierdź</button>");
 }
 
 
