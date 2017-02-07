@@ -211,6 +211,9 @@ function validateAnkieta(){
 }
 
 
+
+
+
 function displaySurvey(){ // tworzy ankietę na podstawie JSON-a (który powinien byc otrzymywany z serwera)
   $("#ankieta_container").empty();
   //var ankietaString = '{"id":123,"title":"Test JSON- ankieta","questions":[{"idPyt":0,"pytanie":"pytanie 1","rodzaj":"multiple","odpowiedzi":["1","2","3"]},{"idPyt":1,"pytanie":"pytanie 2","rodzaj":"single","odpowiedzi":["a","b","c","d"]},{"idPyt":2,"pytanie":"pytanie 3","rodzaj":"single","odpowiedzi":["one","two","three"]},{"idPyt":3,"pytanie":"pytanie 4","rodzaj":"multiple","odpowiedzi":["111","123","139"]},{"idPyt":4,"pytanie":"Are you a boy or a girl?","rodzaj":"single","odpowiedzi":["Y","N"]}]}';
@@ -253,11 +256,19 @@ function displaySurvey(){ // tworzy ankietę na podstawie JSON-a (który powinie
       p.appendChild(label);
       $("#an"+i).append("<br>");
     }
+	var pytID = i+1;
+	
+	if(pytID==1){$("#ankieta_container").append("<button onclick='location.href=\"w11.html\"'>Wyświetl wykers</button>");}
+	if(pytID==2){$("#ankieta_container").append("<button onclick='location.href=\"w12.html\"'>Wyświetl wykers</button>");}
+	if(pytID==3){$("#ankieta_container").append("<button onclick='location.href=\"w13.html\"'>Wyświetl wykers</button>");}
+	$("#ankieta_container").append("<div><b>" + pytID + "blabla" + surveyID + "</b></div>");
     $("#ankieta_container").append("<br>");
+	
   }
-  $("#ankieta_container").append("<button onclick='validateAnkieta()'>Zatwierdź</button>");
+  
   $("#ankieta_container").append("<button class='reset_button' onclick='uncheckAllCheckboxes()'>Reset</button>");
 }
+
 
 
 function getFilledAnkieta(){ // funkcjonalność przycisku "Zatwierdź" z ekranu wypełniania ankiety- zbiera dane z zaznaczonych pól, buduje obiekt JSON i wysyła do serwera
