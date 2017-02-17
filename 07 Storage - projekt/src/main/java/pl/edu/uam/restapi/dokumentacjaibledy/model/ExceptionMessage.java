@@ -1,6 +1,9 @@
 package pl.edu.uam.restapi.dokumentacjaibledy.model;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.WebApplicationException;
+import javax.xml.ws.soap.AddressingFeature;
 
-public class ExceptionMessage {
+public class ExceptionMessage extends WebApplicationException {
     private String message;
     private String userMessage;
     private String info;

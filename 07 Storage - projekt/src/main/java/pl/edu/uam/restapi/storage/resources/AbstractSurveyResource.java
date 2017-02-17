@@ -9,6 +9,7 @@ import pl.edu.uam.restapi.storage.model.ErrorMessage;
 import pl.edu.uam.restapi.storage.model.Survey;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import pl.edu.uam.restapi.dokumentacjaibledy.exceptions.UserException;
+import javax.validation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
@@ -30,7 +31,7 @@ public abstract class AbstractSurveyResource {
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/{surveyId}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     @ApiOperation(value = "Get survey by id", notes = "[note]Get user by id", response = Survey.class)
-    public Survey getUser(@ PathVariable("surveyId") String surveyId) throws Exception {
+    public Survey getUser(@ PathVariable("surveyId") @Valid String surveyId) throws Exception {
         Survey survey = getDatabase().getSurvey(surveyId);
 
         if (survey == null) {
@@ -43,7 +44,7 @@ public abstract class AbstractSurveyResource {
     @CrossOrigin(origins = "*")
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create survey", notes = "Create survey", response = Survey.class)
-    public ResponseEntity createSurvey(@RequestBody Survey survey, HttpServletRequest request) {
+    public ResponseEntity createSurvey(@RequestBody @Valid Survey survey, HttpServletRequest request) {
         Survey dbSurvey = new Survey(
                 "115",
                 survey.getTitle(),

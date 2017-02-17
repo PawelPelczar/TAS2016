@@ -3,6 +3,9 @@ package pl.edu.uam.restapi.storage.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.*;
+import javax.validation.constraints.NotNull;
 
 @ApiModel(value = "User")
 public class User {
@@ -32,17 +35,20 @@ public class User {
     }
 
     @ApiModelProperty(value = "User login", required = true)
+    @NotNull
     public String getName() {
         return name;
     }
 
 
     @ApiModelProperty(value = "User password", required = true)
+    @NotNull(message = "Password cannot be ommitted")
     public String getPass() {
         return pass;
     }
 
     @ApiModelProperty(value = "User email", required = true)
+    @NotNull @Email
     public String getEmail() {
         return email;
     }

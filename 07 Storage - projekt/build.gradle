@@ -32,6 +32,8 @@ dependencies {
 	compile 'org.hibernate:hibernate-entitymanager:4.3.7.Final'
 	compile 'org.hibernate:hibernate-core:4.3.7.Final'
 	compile 'com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre8'
+	compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
+	compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.0.Final'
 	
 	//compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'

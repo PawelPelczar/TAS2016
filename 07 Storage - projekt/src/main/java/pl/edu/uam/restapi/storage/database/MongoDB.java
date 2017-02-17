@@ -83,6 +83,26 @@ public class MongoDB implements UserDatabase {
             return null;
         }
     }
+    @Override
+    public User deleteUser(String id) {
+        try {
+            UserEntityMongo userEntity = getDatastore()
+                    .find(UserEntityMongo.class)
+                    .field("id")
+                    .equal(new ObjectId(id))
+                    .get();
+
+            if (userEntity != null) {
+                getDatastore().delete(userEntity);
+                return buildUserResponse(userEntity);
+            }
+
+            return null;
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
 
 
 

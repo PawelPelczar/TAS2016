@@ -3,6 +3,7 @@ package pl.edu.uam.restapi.dokumentacjaibledy.exceptions;
 
 import pl.edu.uam.restapi.dokumentacjaibledy.model.ExceptionMessage;
 
+import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

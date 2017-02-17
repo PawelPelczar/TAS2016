@@ -14,9 +14,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan
 @SpringBootApplication
 @EnableSwagger2
+
 public class RestApiApp {
     public static void main(String[] args) {
         SpringApplication.run(RestApiApp.class, args);
     }
+
 }
 

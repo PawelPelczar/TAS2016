@@ -25,4 +25,6 @@ public interface UserDatabase {
 
     Collection<Survey> getSurveys();
 
+    User deleteUser(String id);
+
 }
